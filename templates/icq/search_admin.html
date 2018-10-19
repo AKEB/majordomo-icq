@@ -1,0 +1,118 @@
+<div>
+	<a href="https://icq.com/">
+		<img src="../templates/icq/image.png" width="24" height="24">ICQ
+	</a>&nbsp;
+	<a class="btn btn-default" href="#api_settings" data-toggle="collapse"><i class="glyphicon glyphicon-cog"></i> <#LANG_SETUP#></a> &nbsp;&nbsp;&nbsp; [#if CYCLERUN==1#]
+	<span class="label label-success" title="Статус цикла">Цикл запущен</span> [#else#]
+	<span class="label label-danger" title="Статус цикла">Цикл остановлен</span> [#endif#]
+	<button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#about"><#LANG_ABOUT#>&nbsp;&nbsp;<span class="glyphicon glyphicon-info-sign icon-white"></span>
+	</button>
+</div>
+
+<div class="collapse" id='api_settings'>&nbsp;
+	<form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
+		<fieldset>
+			<div class="form-group">
+				<label class="col-lg-4 control-label"><#LANG_ICQ_TOKEN#>
+					<span class='support' tabindex="1" data-title="<#LANG_HELP_TOKEN#>">
+						<i class="glyphicon glyphicon-info-sign"></i>
+					</span>
+				</label>
+				<div class="col-lg-6"><input class="form-control" type="text" name="icq_token" value="<#ICQ_TOKEN#>" class="input"></div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label"><#LANG_ICQ_STORAGE_PATH#>
+				<span class='support' tabindex="1" data-title="<#LANG_HELP_STORAGE#>">
+				<i class="glyphicon glyphicon-info-sign"></i>
+			</label>
+				<div class="col-lg-6"><input class="form-control" type="text" name="icq_storage" value="<#ICQ_STORAGE#>" class="input"></div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label"><#LANG_ICQ_TIMEOUT#>
+					<span class='support' tabindex="1" data-title="<#LANG_HELP_TIMEOUT#>">
+						<i class="glyphicon glyphicon-info-sign"></i>
+					</span>
+				</label>
+				<div class="col-lg-6"><input class="form-control" type="text" name="icq_timeout" value="<#ICQ_TIMEOUT#>" class="input"></div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">Debug</label>
+				<div class="controls"><input type="checkbox" name="icq_debug" value="1" [#if ICQ_DEBUG="1" #] checked[#endif#]></div>
+			</div>
+			<label class="control-label" style="visibility:hidden">"<#ICQ_test#>"</label>
+			<div class="form-actions">
+				<button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_UPDATE#></button>
+				<input type="hidden" name="view_mode" value="update_settings">
+				<input type="hidden" name="mode" value="update">
+				<input type="hidden" name="tab" value="<#TAB#>">
+			</div>
+		</fieldset>
+	</form>
+</div>
+<br/>
+
+<ul class="nav nav-tabs">
+	<li [#if TAB=="" || TAB=="users" #] class="active" [#endif#]>
+		<a href="?tab=users">
+			<#LANG_MODULE_USERS#>
+		</a>
+	</li>
+	<li [#if TAB=="cmd" #] class="active" [#endif#]>
+		<a href="?tab=cmd">
+			<#LANG_ICQ_COMMANDS#>
+		</a>
+	</li>
+	<li [#if TAB=="events" #] class="active" [#endif#]>
+		<a href="?tab=events">
+			<#LANG_ICQ_EVENTS#>
+		</a>
+	</li>
+	<li [#if TAB=="log" #] class="active" [#endif#]>
+		<a href="?tab=log">
+			<#LANG_GENERAL_EVENTS_LOG#>
+		</a>
+	</li>
+	<li [#if TAB=="help" #] class="active" [#endif#]>
+		<a href="?tab=help">
+			<#LANG_ICQ_HELP#>
+		</a>
+	</li>
+</ul>
+
+[#if TAB="users" || TAB==""#] [#inc search_users.html#] [#endif#] [#if TAB="cmd"#] [#inc search_cmd.html#] [#endif#] [#if TAB="events"#] [#inc search_events.html#] [#endif#] [#if TAB="log"#] [#inc search_log.html#] [#endif#] [#if TAB="help"#] [#inc help.html#]
+[#endif#]
+
+<div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="about1" aria-hidden="true">
+	<!-- <div id="about" class="modal hide"> -->
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">ICQ bot</h4>
+			</div>
+			<div class="modal-body">
+				<div class="float-right">
+					<a href="https://icq.com/">
+						<img src="../templates/icq/image.png" width="48" height="48">
+					</a>
+				</div>
+				<p class="float-left"> Модуль ICQ бота.<br>
+					<!-- Обсуждение модуля <a href="http://majordomo.smartliving.ru/forum/viewtopic.php?f=5&t=2768" target="_blank">здесь</a>.<br> -->
+				</p>
+				<hr size="1">
+				<p class="float-left">
+					Поддержать автора материально:
+					<ul>
+						<li><a href="https://connect.smartliving.ru/tasks/294.html" target="_blank">Connect</a></li>
+					</ul>
+				</p>
+			</div>
+
+			<div class="modal-footer">
+				<div class="pull-left">Telegram: <a href="https://t.me/AKEB_VADIM" target="_blank">@AKEB_VADIM</a></div>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

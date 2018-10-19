@@ -1,0 +1,27 @@
+<!-- action usual -->
+[#if DATA_SOURCE="icq" || DATA_SOURCE=""#]
+<!-- table mysensor search -->
+[#if VIEW_MODE="search_mysensors" || VIEW_MODE=""#] [#inc search_admin.html#] [#endif VIEW_MODE#]
+
+<!-- table node edit -->
+[#if VIEW_MODE="user_edit"#]
+<a class="btn btn-defaul btn-primary" href="?">&lt;&lt;&lt; <#LANG_BACK#></a>
+<p align=center>
+	[#if ID!=""#] [#if USER_ID!=""#]
+	<img src="../cms/cached/icq/[#USER_ID#].jpg" height="50px" onerror="this.src='../templates/icq/img/none.jpg'">
+	<br> [#endif USER_ID#] [#if NAME!=""#]
+	<#LANG_USER#>: <strong>[#NAME#]</strong>[#endif NAME#] [#endif ID#]
+</p>
+[#inc user_edit.html#] [#endif VIEW_MODE#] [#if VIEW_MODE="cmd_edit"#]
+<a class="btn btn-defaul btn-primary" href="?tab=cmd">&lt;&lt;&lt; <#LANG_BACK#></a>
+<p align=center>
+	[#if ID!=""#] [#if TITLE!=""#]
+	<#LANG_ICQ_COMMAND#>: <strong>[#TITLE#]</strong>[#endif TITLE#] [#endif ID#]
+</p>
+[#inc cmd_edit.html#] [#endif VIEW_MODE#] [#if VIEW_MODE="event_edit"#]
+<a class="btn btn-defaul btn-primary" href="?tab=events">&lt;&lt;&lt; <#LANG_BACK#></a>
+<p align=center>
+	[#if ID!=""#] [#if TITLE!=""#]
+	<#LANG_ICQ_EVENT#>:<strong>[#TITLE#]</strong>[#endif TITLE#] [#endif ID#]
+</p>
+[#inc event_edit.html#] [#endif VIEW_MODE#] [#endif DATA_SOURCE#]

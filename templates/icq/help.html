@@ -1,0 +1,84 @@
+<br/>
+<div class="panel-group" id="accordion">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<a data-toggle="collapse" data-parent="#accordion" href="#reg_help">Регистрация бота</a>
+		</div>
+		<div class="panel-body collapse" id="reg_help">
+			<p>Для работы модуля необходимо зарегистрировать бота и получить его уникальный id, являющийся одновременно и токеном. Для этого в ICQ существует специальный бот — <a href="https://icq.com/people/megabot" target="_blank">megabot</a>.
+				<br> Пишем ему /help и получаем список всех его команд. Первая и главная — /newbot — отправляем ему и бот просит придумать имя нашему новому боту. Единственное ограничение на имя — в конце оно должно оканчиваться на «bot». В случае успеха megabot
+				возвращает токен бота и ссылку для быстрого добавления бота в контакты.
+				<br> В <b>настройки</b> модуля вносится токен бота вида "<b>001.3395960000.3147852325:745195177</b>"</code>
+			</p>
+		</div>
+	</div>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<a data-toggle="collapse" data-parent="#accordion" href="#settings_help">Регистрация и настройка пользователя</a>
+		</div>
+		<div class="panel-body collapse" id="settings_help">
+			<p><b>Регистрация</b></br>
+				При первом добавлении бота в список контактов, для регистрации нужно нажать в клиенте кнопку "Начать".<br> Либо отправить команду /start.<br> От бота должно прийти в ответ "Вы зарегистрированы! Обратитесь к администратору для получения доступа к функциям."</p>
+			<p><b>Настройка</b></br>
+				Для правильной работы модуля для каждого пользователя необходима привязка к пользователю системы. <br> Данная настройка влияет на то, как будут отображаться в системном чате отправленные пользователем сообщения, и какие сообщения из чата будут отправляться
+				пользователю. <br> Остальные параметры настраиваются в соответствии с тем, какие функции разрешаются данному пользователю.
+			</p>
+		</div>
+	</div>
+
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<a data-toggle="collapse" data-parent="#accordion" href="#commands_help">Команды</a>
+		</div>
+		<div class="panel-body collapse" id="commands_help">
+			Команды используются для построения клавиатуры в клиенте, содержащей шаблоны сообщений. Одним нажатием кнопки из этой клавиатуры осуществляется отправка команды.</br>
+			У каждой команды есть настройка контроля доступа, где можно задать пользователей которым данная команда доступна.</br>
+			Если у команды поле код пусто, то команда передается дальше на обработку в сценарии и в processCommand.</br>
+			Если поле кода не пустое, то выполняется только код. Для отправки ответа на команду в конце кода должен быть <b>return</b> с текстовым сообщением.</br>
+			Текст может содержать HTML разметку. Поддерживаются следующие теги:
+			<pre>
+		&lt;b&gt;bold&lt;/b&gt;, &lt;strong&gt;bold&lt;/strong&gt;
+		&lt;i&gt;italic&lt;/i&gt;, &lt;em&gt;italic&lt;/em&gt;
+		&lt;a href=&quot;URL&quot;&gt;inline URL&lt;/a&gt;
+		&lt;code&gt;inline fixed-width code&lt;/code&gt;
+		&lt;pre&gt;pre-formatted fixed-width code block&lt;/pre&gt;</pre></br>
+			Кроме этого можно отправлять <a href="http://apps.timwhitlock.info/emoji/tables/unicode" target="_blank">emoji</a>.
+			<code style="display:block">
+		$emoji = json_decode('"'.'\ud83d\udca1'.'"');
+		return $emoji;</code></br>
+			В коде команды через переменную <b>$chat_id</b> можно узнать ID пользователя отправившего команду.</br>
+			<code style="display:block">return "Ваш UserID- ".$chat_id; </code>
+		</div>
+	</div>
+
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<a data-toggle="collapse" data-parent="#accordion" href="#events_help">События</a>
+		</div>
+		<div class="panel-body collapse" id="events_help">
+			Данный функционал позволяет навесить на события, такие как получение текстового сообщения, файла, стикера, местоположения и др, свой обработчик.</br>
+			Например, при получении аудиофайла, добавить его в плейлист и выполнить его воспроизведение.</br>
+			Для каждого из типов событий в выполняемый код передаются определенные параметры, такие как например <b>$chat_id</b>. Более подробно о параметрах расписано в подсказке, которая появляется при выборе типа события.
+		</div>
+	</div>
+
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<a data-toggle="collapse" data-parent="#accordion" href="#code_help">Вызов модуля в своих скриптах/методах</a>
+		</div>
+		<div class="panel-body collapse" id="code_help">
+			<p><b>Для отправки текстовых сообщений</b><br>
+				<code style="display:block">include_once(DIR_MODULES . 'icq/icq.class.php');<br>
+				$icq_module = new icq();<br>
+				$icq_module->sendMessageToUser(139809588, "test message");<br>
+				$icq_module->sendMessageToAdmin("test message to admin");<br>
+				$icq_module->sendMessageToAll("test message to all");</code></p>
+
+			<p><b>Получение имени пользователя по его chat_id (только для зарегистрированных пользователей в модуле)</b><br>
+				<code style="display:block">include(DIR_MODULES . 'icq/icq.class.php');<br>
+		$icq_module = new icq();<br>
+		$icq_module->getUserName(139809588);</code></p>
+		</div>
+	</div>
+</div>
+</div>
